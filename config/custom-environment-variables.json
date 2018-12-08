@@ -1,0 +1,6 @@
+{
+    "stripe":{
+        "publicKey":"PUBLIC_KEY",
+        "secretKey":"PRIVATE_KEY"
+    }
+}

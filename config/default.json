@@ -1,0 +1,6 @@
+{
+    "stripe":{
+        "publicKey":"pppp",
+        "secretKey":"ssss"
+    }
+}

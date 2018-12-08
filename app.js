@@ -1,9 +1,14 @@
-const keyPublishable = "pk_test_6pRNASCoBOKtIshFeQd4XMUh"; // or const keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"; // or const keySecret = process.env.SECRET_KEY;
+const config = require('config');
+console.log(config);
+
+const keyPublishable = config.stripe.publicKey; // or const keyPublishable = process.env.PUBLISHABLE_KEY;
+const keySecret = config.stripe.secretKey; // or const keySecret = process.env.SECRET_KEY;
+const port = normalizePort(process.env.PORT || '3002');
+
 
 const app = require("express")();
 const stripe = require("stripe")(keySecret);
-
+app.set('port', port);
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -30,4 +35,20 @@ app.post("/charge", (req, res) => {
   .then(charge => res.render("charge.pug", {my_amount}));
 });
 
-app.listen(3000);
+app.listen(port);
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
